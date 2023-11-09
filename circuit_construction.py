@@ -23,7 +23,8 @@ def amplitude_encoding_gate(x):
     num_encoding_qubits = int(np.ceil(np.log2(len(x))))
 
     qc = QuantumCircuit(num_encoding_qubits)
-    qc.initialize(x, qc.qubits)
+    qc_intruction = StatePreparation(x)
+    qc.append(qc_intruction, qc.qubits)
     qc = transpile(qc,basis_gates=["u1","u2","u3","cx"],optimization_level=1)
     # return encoding_gate  
     return qc.to_gate()
